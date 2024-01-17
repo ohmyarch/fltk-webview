@@ -168,8 +168,7 @@ impl Webview {
                 assert!(!temp.is_null());
                 let xid = my_get_xid(temp as _);
                 let flxid = win.raw_handle();
-                if win_manager("gnome-session") {
-                    println!("gnome");
+                if !win_manager("gnome-session") {
                     win.draw(move |w| {
                         x_init(app::display() as _, xid, flxid);
                         app::sleep(0.03);
@@ -177,7 +176,6 @@ impl Webview {
                     });
                     win.flush();
                 } else {
-                    println!("not gnome");
                     x_init(app::display() as _, xid, flxid);
                     win.draw(move |w| wv::webview_set_size(inner, w.w(), w.h(), 0));
                 }
